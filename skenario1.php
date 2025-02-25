@@ -78,8 +78,42 @@ if($jam >= date("00:00") && $jam <= date("04:00")) {
 // Sebelum tidur, Andi dan keluarganya memiliki kebiasaan mengobrol bersama keluarga selama 30 menit. Mengobrol bersama keluarga dilakukan setelah tugas sekolah Andi selesai dikerjakan. Dapat dimajukan jika tidak ada tugas sekolah.
 // Andi tidur jam 22:00 dan bangun jam 04:00.
 
-$jam = "21:30";
+$jam = "19:45";
+$tugas = "ada";
+$waktu_ngobrol = "maju";
 
+// Menampilkan jadwal keseharian Andi
+echo "<h2>Jadwal Harian</h2>";
+echo "<ul>";
+echo "<li><strong>15:30 - 15:45</strong> : Pulang Sekolah</li>";
+echo "<li><strong>15:45 - 16:00</strong> : Mandi</li>";
+echo "<li><strong>16:00 - 16:30</strong> : Mengaji</li>";
+echo "<li><strong>16:30 - 17:00</strong> : Pergi membeli bumbu masakan</li>";
+echo "<li><strong>17:00 - 17:30</strong> : Chatting dengan Raya mengenai persiapan festival</li>";
+echo "<li><strong>17:30 - 18:00</strong> : Menghafal dialog untuk festival kesenian budaya</li>";
+echo "<li><strong>18:00 - 18:30</strong> : Sholat Maghrib</li>";
+echo "<li><strong>18:30 - 19:00</strong> : Makan malam</li>";
+echo "<li><strong>19:00 - 19:30</strong> : Sholat Isya</li>";
+
+if ($tugas == "ada") {
+    echo "<li><strong>19:30 - 21:30</strong> : Mengerjakan Tugas</li>";
+    echo "<li><strong>21:30 - 22:00</strong> : Ngobrol dengan keluarga</li>";
+} else {
+    if ($waktu_ngobrol == "maju") {
+        echo "<li><strong>19:30 - 20:00</strong> : Ngobrol dengan keluarga</li>";
+        echo "<li><strong>20:00 - 21:30</strong> : Waktu Luang</li>";
+    } else {
+        echo "<li><strong>19:30 - 21:30</strong> : Waktu Luang</li>";
+        echo "<li><strong>21:30 - 22:00</strong> : Ngobrol dengan keluarga</li>";
+    }
+}
+
+echo "<li><strong>22:00 - 23:59</strong> : Tidur</li>";
+echo "<li><strong>00:00 - 04:00</strong> : Tidur</li>";
+echo "<li><strong>04:00 - 15:30</strong> : Bangun tidur & Aktivitas lainnya</li>";
+echo "</ul>";
+
+// Kode utama (TIDAK DIUBAH)
 if ($jam >= "15:30" && $jam < "15:45") {
     echo "Jam $jam : Pulang Sekolah";
 } else if ($jam >= "15:45" && $jam < "16:00") {
@@ -98,10 +132,28 @@ if ($jam >= "15:30" && $jam < "15:45") {
     echo "Jam $jam : Makan malam";
 } else if ($jam >= "19:00" && $jam < "19:30") {
     echo "Jam $jam : Sholat Isya";
-} else if ($jam >= "19:30" && $jam < "21:30") {
-    echo "Jam $jam : Mengerjakan Tugas";
-} else if ($jam >= "21:30" && $jam < "22:00") {
-    echo "Jam $jam : Mengobrol bersama keluarga";
+} else if ($jam >= "19:30" && $jam < "22:00") {
+    if ($tugas == "ada") {
+        if ($jam >= "19:30" && $jam < "21:30") {
+            echo "<br/> $jam Mengerjakan tugas";
+        } else if ($jam >= "21:30" && $jam < "22:00") {
+            echo "<br/> $jam Ngobrol dengan keluarga";
+        }
+    } else {
+        if ($waktu_ngobrol == "maju") {
+            if ($jam >= "19:30" && $jam < "20:00") {
+                echo "<br/> $jam Ngobrol dengan keluarga";
+            } else {
+                echo "<br/> $jam Waktu luang";
+            }
+        } else {
+            if ($jam >= "21:30" && $jam < "22:00") {
+                echo "<br/> $jam Ngobrol dengan keluarga";
+            } else {
+                echo "<br/> $jam Waktu luang";
+            }
+        }
+    }
 } else if (($jam >= "22:00" && $jam <= "23:59") || ($jam >= "00:00" && $jam < "04:00")) {
     echo "Jam $jam : Tidur";
 } else if ($jam >= "04:00" && $jam < "15:30") {
